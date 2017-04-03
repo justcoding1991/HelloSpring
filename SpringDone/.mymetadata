@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="SpringDone"
+  id="myeclipse.1486865109366"
+  context-root="/SpringDone"
+  j2ee-spec="5.0"
+  archive="SpringDone.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+

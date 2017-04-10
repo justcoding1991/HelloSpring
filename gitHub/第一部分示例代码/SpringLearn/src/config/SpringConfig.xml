@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:tx="http://www.springframework.org/schema/tx"
+		xmlns:p="http://www.springframework.org/schema/p"
+		xmlns:util="http://www.springframework.org/schema/util"
+		xmlns:cache="http://www.springframework.org/schema/cache"
+		xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+		xsi:schemaLocation="
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/jdbc
+		http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+		http://www.springframework.org/schema/cache
+		http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop.xsd
+		http://www.springframework.org/schema/util
+		http://www.springframework.org/schema/util/spring-util.xsd">
+
+	
+	<bean id="sleepHelper" class="com.springLearn.classicProxyAop.SleepHelper"></bean>	
+	<bean id="sleepPointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut">
+ 		<property name="pattern" value=".*sleep"/>
+	</bean>
+	<bean id="sleepHelperAdvisor" class="org.springframework.aop.support.DefaultPointcutAdvisor">
+		<property name="advice" ref="sleepHelper"/>
+		<property name="pointcut" ref="sleepPointcut"/>
+	</bean>
+	<bean id="humanProxy" class="org.springframework.aop.framework.ProxyFactoryBean">
+		<property name="target" ref="human"/>
+		<property name="interceptorNames" value="sleepHelperAdvisor" />
+		<property name="proxyInterfaces" value="com.springLearn.classicProxyAop.Sleepable" />
+	</bean>
+	<bean id="human" class="com.springLearn.classicProxyAop.Human"></bean>
+	
+</beans>
+	
